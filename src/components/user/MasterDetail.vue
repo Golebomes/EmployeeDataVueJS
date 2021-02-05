@@ -5,7 +5,7 @@
 
       <!--        MainDetails-->
       <v-expansion-panel>
-        <v-expansion-panel-header><strong>Детали</strong></v-expansion-panel-header>
+        <v-expansion-panel-header><strong>Персональные данные</strong></v-expansion-panel-header>
         <v-expansion-panel-content>
 
           <v-container>

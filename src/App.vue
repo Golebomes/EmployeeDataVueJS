@@ -10,7 +10,6 @@
       <div class="d-flex align-center;">
 
       </div>
-
     </v-app-bar>
 
 <!--    Sidebar-->
@@ -63,16 +62,7 @@
             <v-list-item-title>{{ 'Настройки' }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-
-
-
       </v-list>
-
-
-
-
-
     </v-navigation-drawer>
 
 <!--    Main Content-->
@@ -95,7 +85,7 @@
 
 
 // import Sidebar from "@/components/Sidebar";
-import MainWrapper from "@/components/MainWrapper";
+import MainWrapper from "@/components/user/MainWrapper";
 
 export default {
   name: 'App',
@@ -166,6 +156,70 @@ export default {
           iin: '9988715',
           ID: "1005",
           email: "shamil42@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
+        },
+        {
+          name: 'Ерден',
+          surname: 'Куатов',
+          patronymic: 'Башпаевич',
+          iin: '64972900',
+          ID: "1006",
+          email: "erden007@gmail.com"
         },
         {
           name: 'Ерден',
