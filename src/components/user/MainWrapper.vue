@@ -123,11 +123,6 @@ export default {
   name: "MainWrapper",
   components: {EmployeesCards, MasterDetail,},
   props: ["EmployeeData", "selected"],
-  // computed: {
-  //   bitPrice() {
-  //     return this.$store.getters.getBitPrice;
-  //   }
-  // },
   computed: mapGetters(['bitPrice']),
   async mounted() {
     await this.$store.dispatch('fetchBitPrice')
