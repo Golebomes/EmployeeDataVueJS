@@ -1,5 +1,8 @@
 <template>
-
+  <div>
+      <!--suppress HtmlDeprecatedAttribute -->
+    <h1 align="center" style="color: red">URL Not Found</h1>
+  </div>
 </template>
 
 <script>

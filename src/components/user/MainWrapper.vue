@@ -75,7 +75,7 @@
         </v-col>
       </v-row>
 
-<!--      MAIN CONTENT -->
+<!--MAIN CONTENT -->
       <v-row no-gutters style="margin-top: 25px">
         <v-col cols="3">
           <EmployeesCards style="height: 650px" :data="EmployeeData" @click-detail="clickDetail"/>
@@ -84,6 +84,31 @@
           <MasterDetail class="pl-5" v-bind:selected="selected" @click-changeEmployee="changeEmployee"/>
         </v-col>
       </v-row>
+
+<!--Bitcoin Price-->
+      <v-row>
+        <v-col>
+          <v-card>
+              <v-container>
+                <v-row>
+                  <v-col>
+                    <strong>Курс Биткоина на {{bitPrice.time.updated}}</strong>
+                  </v-col>
+                  <v-col>
+                    <span>USD: </span>{{bitPrice.bpi.USD.rate}}
+                  </v-col>
+                  <v-col>
+                    <span>EUR: </span>{{bitPrice.bpi.EUR.rate}}
+                  </v-col>
+                  <v-col>
+                    <span>GBP: </span>{{bitPrice.bpi.GBP.rate}}
+                  </v-col>
+                </v-row>
+              </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+
     </v-container>
   </div>
 </template>
@@ -92,13 +117,24 @@
 
 import MasterDetail from "@/components/user/MasterDetail";
 import EmployeesCards from "@/components/user/EmployeesCards";
+import {mapGetters} from 'vuex'
 
 export default {
   name: "MainWrapper",
   components: {EmployeesCards, MasterDetail,},
   props: ["EmployeeData", "selected"],
+  // computed: {
+  //   bitPrice() {
+  //     return this.$store.getters.getBitPrice;
+  //   }
+  // },
+  computed: mapGetters(['bitPrice']),
+  async mounted() {
+    await this.$store.dispatch('fetchBitPrice')
+  },
   data() {
     return{
+      bitPrices: [],
       dialog: false,
       Employee: {},
       newEmployee: {},

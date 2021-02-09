@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <v-expansion-panels mandatory accordion>
+    <v-expansion-panels v-model="panel" multiple   accordion>
 
       <!--        MainDetails-->
       <v-expansion-panel>
@@ -163,6 +163,7 @@ export default {
   props: ["selected"],
   data() {
     return {
+      panel: [0],
       newPassword1: '',
       newPassword2: '',
       dataFormat: ['ДД.ММ.ГГГГ', 'ДД/ММ/ГГГГ', 'ММ.ДД.ГГГГ',],
