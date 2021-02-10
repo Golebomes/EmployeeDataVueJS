@@ -35,29 +35,48 @@
 
       </v-card>
     </div>
+
+    <v-snackbar
+        v-model="showResult"
+        :timeout="1000"
+        color="red"
+        top>
+      {{ result }}
+    </v-snackbar>
   </v-main>
 </template>
 
 <script>
-import EmployeeData from "@/store/modules/EmployeeData";
 
 export default {
   name: "Login.vue",
   methods: {
     login() {
-      if( this.email === "" || this.password === "") {
-        alert('Заполните все поля');
+      if (this.email === "" || this.password === "") {
+        this.result = "Поля \"Email\" и \"Пароль\" должны быть заполнены.";
+        this.showResult = true
       } else {
-        EmployeeData.state.isAuthorized = true;
-        this.$router.push('/')
+        this.$store.dispatch('login', {email: this.email, password: this.password})
+        if (this.$store.getters.isAuthorized === true){
+          this.$router.push('/')
+        } else {
+          this.result = "Введён не верный \"Email\" или \"Пароль\"."
+          this.showResult = true
+        }
       }
     },
 
   },
   data() {
     return {
+      emp: {
+        email: this.email,
+        password: this.password
+      },
       auth: false,
       email: "",
+      showResult: false,
+      result: '',
       password: "",
       rules: {
         required: value => !!value || 'Обязательное поле',

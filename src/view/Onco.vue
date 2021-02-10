@@ -47,12 +47,12 @@
             <v-icon>{{ 'mdi-view-dashboard' }}</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>
+          <v-list-item-content @click="clickControl">
             <v-list-item-title>{{ 'Управление' }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="clickSettings">
           <v-list-item-icon>
             <v-icon>{{ 'mdi-cog' }}</v-icon>
           </v-list-item-icon>
@@ -79,12 +79,13 @@
     <!--    Main Content-->
     <v-main>
 
-      <MainWrapper v-bind:EmployeeData="EmployeeData"
+      <router-view v-bind:EmployeeData="EmployeeData"
                    @click-detail="clickDetail"
                    @add-employee="addEmployee"
                    v-bind:selected="selected"
                    @click-changeEmployee="changeEmployee"
       />
+
 
     </v-main>
 
@@ -93,23 +94,35 @@
 
 
 <script>
-import MainWrapper from "@/components/user/MainWrapper";
+
+
 import {mapGetters} from 'vuex'
+
 
 export default {
   name: "Onco",
-  components: {MainWrapper},
+  components: {},
+
   computed: mapGetters(['isAuthorized']),
   methods: {
+    clickControl() {
+      // this.showSettings = false;
+      // this.showControl = true;
+      this.$router.push('/control');
+    },
+    clickSettings() {
+      // this.showControl = false;
+      // this.showSettings = true;
+      this.$router.push('/settings');
+    },
     clickDetail(selectedEmployee) {
       this.selected = selectedEmployee;
     },
     addEmployee(employee) {
       this.EmployeeData.push(employee);
-
-
     },
     logout() {
+      this.$store.dispatch('logout');
       this.$router.push('/login');
     },
     changeEmployee(employee) {
@@ -127,6 +140,8 @@ export default {
   },
   data() {
     return {
+      showSettings: false,
+      showControl: false,
       selected: {},
       EmployeeData: [
         {

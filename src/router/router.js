@@ -4,8 +4,10 @@ import Login from '@/view/Login'
 import Onco from "@/view/Onco";
 import Error from "@/view/Error";
 import EmployeeData from "@/store/modules/EmployeeData";
-Vue.use(Router)
+import Settings from "@/view/Settings";
+import Control from "@/components/user/Control";
 
+Vue.use(Router)
 
 
 export default new Router({
@@ -15,13 +17,23 @@ export default new Router({
             path: '/',
             component: Onco,
             name: 'onco',
-            beforeEnter: (to,from,next) => {
+            beforeEnter: (to, from, next) => {
                 if (EmployeeData.state.isAuthorized) {
                     next();
                 } else {
                     next({name: 'login'})
                 }
-            }
+            },
+            children: [
+                {
+                    path: 'settings',
+                    component: Settings,
+                },
+                {
+                    path: 'control',
+                    component: Control,
+                }
+            ]
         },
         {
             path: '/login',
