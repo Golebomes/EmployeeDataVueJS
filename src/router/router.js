@@ -6,6 +6,7 @@ import Error from "@/view/Error";
 import EmployeeData from "@/store/modules/EmployeeData";
 import Settings from "@/view/Settings";
 import Control from "@/components/user/Control";
+import MainPage from "@/view/MainPage";
 
 Vue.use(Router)
 
@@ -18,7 +19,7 @@ export default new Router({
             component: Onco,
             name: 'onco',
             beforeEnter: (to, from, next) => {
-                if (EmployeeData.state.isAuthorized) {
+                if (EmployeeData.state.isAuthorized || sessionStorage.getItem('isSignIn')) {
                     next();
                 } else {
                     next({name: 'login'})
@@ -32,6 +33,10 @@ export default new Router({
                 {
                     path: 'control',
                     component: Control,
+                },
+                {
+                    path: 'main',
+                    component: MainPage,
                 }
             ]
         },

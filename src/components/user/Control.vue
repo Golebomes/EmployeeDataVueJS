@@ -81,7 +81,11 @@
           <EmployeesCards style="height: 650px" :data="EmployeeData" @click-detail="clickDetail"/>
         </v-col>
         <v-col>
-          <MasterDetail class="pl-5" v-bind:selected="selected" @click-changeEmployee="changeEmployee"/>
+          <MasterDetail class="pl-5" v-bind:selected="selected"
+                        @click-changeEmployee="changeEmployee"
+                        @click-deleteEmployee="deleteEmployee"
+                        @click-savePassword="savePassword"
+          />
         </v-col>
       </v-row>
 
@@ -139,10 +143,14 @@ export default {
         {model: 'patronymic', label: 'Отчество', col: '4'},
         {model: 'iin', label: 'ИИН', col: '8'},
         {model: 'email', label: 'email', col: '4'},
+        {model: 'password', label: 'Пароль', col: '4'},
       ],
     }
   },
   methods: {
+    savePassword(password) {
+      this.$emit('click-savePassword',password);
+    },
     clickDetail(selectedEmployee) {
       this.$emit('click-detail', selectedEmployee)
     },
@@ -151,6 +159,9 @@ export default {
       this.dialog = false
       this.$emit('add-employee', this.newEmployee)
       this.newEmployee = {}
+    },
+    deleteEmployee (ID) {
+      this.$emit('click-deleteEmployee', ID)
     },
     changeEmployee(employee) {
       this.$emit('click-changeEmployee', employee)

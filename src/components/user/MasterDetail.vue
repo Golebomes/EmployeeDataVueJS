@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <v-expansion-panels v-model="panel" multiple   accordion>
+    <v-expansion-panels v-model="panel" multiple accordion>
 
       <!--        MainDetails-->
       <v-expansion-panel>
@@ -10,7 +10,7 @@
 
           <v-container>
 
-<!--            Top info about selected Employee-->
+            <!--            Top info about selected Employee-->
             <div v-if="selected.ID!=null">
               <h2>{{ selected.name }} {{ selected.surname }} {{ selected.patronymic }} {{ selected.ID }}</h2>
               <v-divider style="padding-top: 10px;padding-bottom: 10px"></v-divider>
@@ -35,10 +35,17 @@
               <v-col cols="4">
                 <v-text-field v-model="selected.email" label="Email"></v-text-field>
               </v-col>
-
-              <v-col cols="10">
+            </v-row>
+            <v-row>
+              <v-col cols="4">
                 <v-btn style="background-color: purple; color: #f1f1f1" v-on:click="detailSave(selected)">
                   Сохранить
+                </v-btn>
+              </v-col>
+
+              <v-col cols="4">
+                <v-btn style="background-color: red; color: #f1f1f1" v-on:click="deleteEmployee(selected.ID)">
+                  Удалить
                 </v-btn>
               </v-col>
             </v-row>
@@ -58,7 +65,8 @@
                 <v-text-field :type="show1 ? 'text': 'password'"
                               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                               @click:append="show1 = !show1"
-                              :rules="[rules.required, rules.min]"
+                              v-model="oldPassword"
+                              :rules="[rules.required]"
                               label="Введите старый пароль"
                 ></v-text-field>
               </v-col>
@@ -70,7 +78,7 @@
                               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                               @click:append="show2 = !show2"
                               v-model="newPassword1"
-                              :rules="[rules.required, rules.min]"
+                              :rules="[rules.required]"
                               label="Введите новый пароль"></v-text-field>
               </v-col>
               <v-col cols="5">
@@ -78,14 +86,14 @@
                               :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                               @click:append="show3 = !show3"
                               v-model="newPassword2"
-                              :rules="[rules.required, rules.min, rules.checkEquality]"
+                              :rules="[rules.required, rules.checkEquality]"
                               label="Повторите новый пароль"></v-text-field>
               </v-col>
             </v-row>
 
             <v-row>
               <v-col>
-                <v-btn style="background-color: purple; color: #f1f1f1" v-on:click="PasswordSave">
+                <v-btn style="background-color: purple; color: #f1f1f1" v-on:click="savePassword">
                   Сохранить
                 </v-btn>
               </v-col>
@@ -104,7 +112,7 @@
             <v-row>
 
               <v-col cols="5">
-                <v-autocomplete  :items="dataFormat" label="Формат Даты и времени">
+                <v-autocomplete :items="dataFormat" label="Формат Даты и времени">
                 </v-autocomplete>
               </v-col>
 
@@ -164,13 +172,14 @@ export default {
   data() {
     return {
       panel: [0],
+      oldPassword: '',
       newPassword1: '',
       newPassword2: '',
       dataFormat: ['ДД.ММ.ГГГГ', 'ДД/ММ/ГГГГ', 'ММ.ДД.ГГГГ',],
       sidebarSettings: ['Вариант 1', 'Вариант 2', 'Вариант 3',],
-      show1: false,
-      show2: false,
-      show3: false,
+      show1: true,
+      show2: true,
+      show3: true,
       rules: {
         required: value => !!value || 'Обязательно.',
         min: v => v.length >= 8 || 'Необходимо 8 символов',
@@ -179,12 +188,17 @@ export default {
     }
   },
   methods: {
-    PasswordSave() {
-      alert(`Password Save Button`)
+    savePassword() {
+      this.$emit('click-savePassword',{oldPassword: this.oldPassword,
+        newPassword: this.newPassword1, ID: this.selected.ID
+      })
+    },
+    deleteEmployee(ID) {
+      this.$emit('click-deleteEmployee', ID)
     },
     detailSave(employee) {
-      alert('Detail Save Button')
-      this.$emit('click-changeEmployee',employee)
+
+      this.$emit('click-changeEmployee', employee)
     },
     StyleSave() {
       alert('Style Save Button')

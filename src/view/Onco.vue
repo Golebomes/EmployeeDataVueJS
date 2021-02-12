@@ -27,7 +27,7 @@
             <v-icon>{{ 'mdi-application' }}</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>
+          <v-list-item-content @click="clickMain">
             <v-list-item-title>{{ 'Главное Меню' }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -84,7 +84,28 @@
                    @add-employee="addEmployee"
                    v-bind:selected="selected"
                    @click-changeEmployee="changeEmployee"
+                   :key="MainWrapperKey"
+                   @click-deleteEmployee="deleteEmployee"
+                   @click-savePassword="savePassword"
       />
+
+
+      <v-snackbar
+          v-model="showResultOfChangingPassword"
+          :timeout="5000"
+          color="green"
+          top>
+        Пароль успешно изменен
+      </v-snackbar>
+
+      <v-snackbar
+          v-model="showResultOfNotChangingPassword"
+          :timeout="5000"
+          color="red"
+          top>
+        Ошибка при изменении пароля
+      </v-snackbar>
+
 
 
     </v-main>
@@ -102,13 +123,36 @@ import {mapGetters} from 'vuex'
 export default {
   name: "Onco",
   components: {},
+  url: 'https://jsonplaceholder.typicode.com/posts',
+  computed: mapGetters(['isAuthorized','employeeData','MainWrapperKey']),
+  async mounted() {
+    await this.$store.dispatch('fetchEmployees')
 
-  computed: mapGetters(['isAuthorized']),
+    this.EmployeeData = this.employeeData;
+  },
   methods: {
+    savePassword(password) {
+      for (let i = 0; i < this.EmployeeData.length; i++) {
+        if (this.EmployeeData[i].ID === password.ID && this.EmployeeData[i].password === password.oldPassword) {
+          this.EmployeeData[i].password = password.newPassword
+          this.selectedEmployeeForPassword = this.EmployeeData[i]
+          console.log(this.selectedEmployeeForPassword);
+          this.$store.dispatch('changeEmployee',this.selectedEmployeeForPassword)
+          this.showResultOfChangingPassword = true;
+        }
+      }
+      if(this.showResultOfChangingPassword === false) {
+        this.showResultOfNotChangingPassword = true;
+      }
+
+    },
     clickControl() {
       // this.showSettings = false;
       // this.showControl = true;
       this.$router.push('/control');
+    },
+    clickMain() {
+      this.$router.push('/main')
     },
     clickSettings() {
       // this.showControl = false;
@@ -119,13 +163,28 @@ export default {
       this.selected = selectedEmployee;
     },
     addEmployee(employee) {
-      this.EmployeeData.push(employee);
+      console.log("Added new employee which is " + employee);
+      if(employee.ID != null) {
+        this.$store.dispatch('addEmployee', employee);
+        this.EmployeeData.push(employee);
+        //this.EmployeeData = this.employeeData;
+      }
     },
     logout() {
       this.$store.dispatch('logout');
       this.$router.push('/login');
     },
+    deleteEmployee(ID) {
+      this.$store.dispatch('deleteEmployee',ID)
+      for (let i = 0; i < this.EmployeeData.length; i++) {
+        if (this.EmployeeData[i].ID === ID) {
+          this.EmployeeData.splice(i, 1);
+        }
+      }
+      this.selected = {};
+    },
     changeEmployee(employee) {
+      this.$store.dispatch('changeEmployee', employee);
       for (let i = 0; i < this.EmployeeData.length; i++) {
         if (this.EmployeeData[i].ID === employee.ID) {
           this.EmployeeData.name = employee.name;
@@ -140,9 +199,14 @@ export default {
   },
   data() {
     return {
+
+      selectedEmployeeForPassword: {},
       showSettings: false,
       showControl: false,
       selected: {},
+      showResultOfChangingPassword: false,
+      showResultOfNotChangingPassword: false,
+      result: 'Пароль успешно изменен',
       EmployeeData: [
         {
           name: 'Мурат',
@@ -150,113 +214,9 @@ export default {
           patronymic: 'Ержанович',
           iin: '12345678',
           ID: "1001",
-          email: "kraken007@gmail.com"
+          email: "kraken007@gmail.com",
+          password: 'a'
         },
-        {
-          name: 'Канат',
-          surname: 'Аскаров',
-          patronymic: 'Болатович',
-          iin: '122312345',
-          ID: "1002",
-          email: "kanat78@gmail.com"
-        },
-        {
-          name: 'Мадина',
-          surname: 'Айболов',
-          patronymic: 'Болатович',
-          iin: '48675446',
-          ID: "1003",
-          email: "madina007@gmail.com"
-        },
-        {
-          name: 'Лаура',
-          surname: 'Сагатов',
-          patronymic: 'Жандосовна',
-          iin: '12398765',
-          ID: "1004",
-          email: "laura12@gmail.com"
-        },
-        {
-          name: 'Жан',
-          surname: 'Алишеров',
-          patronymic: 'Канатович',
-          iin: '9988715',
-          ID: "1005",
-          email: "shamil42@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-        {
-          name: 'Ерден',
-          surname: 'Куатов',
-          patronymic: 'Башпаевич',
-          iin: '64972900',
-          ID: "1006",
-          email: "erden007@gmail.com"
-        },
-
 
       ],
     }
