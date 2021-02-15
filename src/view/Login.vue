@@ -3,7 +3,7 @@
     <div class="login d-flex justify-center align-center">
       <v-card class="d-flex flex-column justify-center align-center" elevation="5" height="420" width="384">
         <div class="d-flex mt-4">
-          <img src="../assets/logo_kazior_color.png" height="64" width="312" alt="Logo"/>
+          <img src="../assets/KazDC.png" height="64" width="312" alt="Logo"/>
         </div>
         <span class="d-flex mt-4">Информационно-аналитическая система</span>
         <div class="d-block col align-center mt-4 pb-0">
@@ -70,8 +70,8 @@ export default {
   data() {
     return {
       emp: {
-        email: this.email,
-        password: this.password
+        email: '',
+        password: ''
       },
       auth: false,
       email: "",

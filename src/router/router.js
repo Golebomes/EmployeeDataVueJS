@@ -4,9 +4,9 @@ import Login from '@/view/Login'
 import Onco from "@/view/Onco";
 import Error from "@/view/Error";
 import EmployeeData from "@/store/modules/EmployeeData";
-import Settings from "@/view/Settings";
+import Settings from "@/components/user/Settings";
 import Control from "@/components/user/Control";
-import MainPage from "@/view/MainPage";
+import MainPage from "@/components/user/MainPage";
 
 Vue.use(Router)
 

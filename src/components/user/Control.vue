@@ -37,7 +37,7 @@
                           <v-row>
                             <v-col
                                 v-for="h in headers"
-                                :key="h"
+                                :key="h.label"
                                 :cols="h.col"
                             >
                               <v-text-field
@@ -90,28 +90,28 @@
       </v-row>
 
 <!--Bitcoin Price-->
-      <v-row>
-        <v-col>
-          <v-card>
-              <v-container>
-                <v-row>
-                  <v-col>
-                    <strong>Курс Биткоина на {{bitPrice.time.updated}}</strong>
-                  </v-col>
-                  <v-col>
-                    <span>USD: </span>{{bitPrice.bpi.USD.rate}}
-                  </v-col>
-                  <v-col>
-                    <span>EUR: </span>{{bitPrice.bpi.EUR.rate}}
-                  </v-col>
-                  <v-col>
-                    <span>GBP: </span>{{bitPrice.bpi.GBP.rate}}
-                  </v-col>
-                </v-row>
-              </v-container>
-          </v-card>
-        </v-col>
-      </v-row>
+<!--      <v-row>-->
+<!--        <v-col>-->
+<!--          <v-card>-->
+<!--              <v-container>-->
+<!--                <v-row>-->
+<!--                  <v-col>-->
+<!--                    <strong>Курс Биткоина на {{bitPrice.time.updated}}</strong>-->
+<!--                  </v-col>-->
+<!--                  <v-col>-->
+<!--                    <span>USD: </span>{{bitPrice.bpi.USD.rate}}-->
+<!--                  </v-col>-->
+<!--                  <v-col>-->
+<!--                    <span>EUR: </span>{{bitPrice.bpi.EUR.rate}}-->
+<!--                  </v-col>-->
+<!--                  <v-col>-->
+<!--                    <span>GBP: </span>{{bitPrice.bpi.GBP.rate}}-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--              </v-container>-->
+<!--          </v-card>-->
+<!--        </v-col>-->
+<!--      </v-row>-->
 
     </v-container>
   </div>

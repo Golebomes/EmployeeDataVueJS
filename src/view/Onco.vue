@@ -13,9 +13,9 @@
 
     <!--    Sidebar-->
     <v-navigation-drawer app permanent>
-      <v-list color="purple" elevation="5">
+      <v-list color="A52A2A" elevation="5">
         <v-list-item>
-          <img src="../assets/logo_kazior_white.png" height="40" width="195" alt="Logo"/>
+          <img src="../assets/KazDC.png" height="40" width="195" alt="Logo"/>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -92,7 +92,7 @@
 
       <v-snackbar
           v-model="showResultOfChangingPassword"
-          :timeout="5000"
+          :timeout="2000"
           color="green"
           top>
         Пароль успешно изменен
@@ -100,12 +100,19 @@
 
       <v-snackbar
           v-model="showResultOfNotChangingPassword"
-          :timeout="5000"
+          :timeout="2000"
           color="red"
           top>
         Ошибка при изменении пароля
       </v-snackbar>
 
+      <v-snackbar
+          v-model="showResultOfChanging"
+          :timeout="5000"
+          color="green"
+          top>
+        Изменение сохранены
+      </v-snackbar>
 
 
     </v-main>
@@ -123,7 +130,6 @@ import {mapGetters} from 'vuex'
 export default {
   name: "Onco",
   components: {},
-  url: 'https://jsonplaceholder.typicode.com/posts',
   computed: mapGetters(['isAuthorized','employeeData','MainWrapperKey']),
   async mounted() {
     await this.$store.dispatch('fetchEmployees')
@@ -194,7 +200,7 @@ export default {
           this.EmployeeData.email = employee.email;
         }
       }
-
+      this.showResultOfChanging= true;
     }
   },
   data() {
@@ -206,6 +212,7 @@ export default {
       selected: {},
       showResultOfChangingPassword: false,
       showResultOfNotChangingPassword: false,
+      showResultOfChanging: false,
       result: 'Пароль успешно изменен',
       EmployeeData: [
         {
