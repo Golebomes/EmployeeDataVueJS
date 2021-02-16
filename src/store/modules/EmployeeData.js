@@ -2,13 +2,13 @@ export default {
     actions: {
 
         async deleteEmployee(ctx, ID) {
-            await fetch('http://localhost:8888/employees/' + ID, {
+            await fetch('http://localhost:7777/employees/' + ID, {
                 method: 'DELETE'
             })
             ctx.commit('deleteEmployee');
         },
         async changeEmployee(ctx, employee) {
-            const res = fetch('http://localhost:8888/employees/' + (employee.ID), {
+            const res = fetch('http://localhost:7777/employees/' + (employee.id), {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(employee)
@@ -22,12 +22,12 @@ export default {
             ctx.commit('updateBitPrice', bitPrice)
         },
         async fetchEmployees(ctx) {
-            const res = await fetch('http://localhost:8888/employees')
+            const res = await fetch('http://localhost:7777/employees')
             const employees = await res.json()
             ctx.commit('updateEmployees', employees)
         },
         addEmployee(ctx, employee) {
-            const res = fetch('http://localhost:8888/employees', {
+            const res = fetch('http://localhost:7777/employees', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(employee)

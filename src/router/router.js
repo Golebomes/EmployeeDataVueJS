@@ -7,6 +7,7 @@ import EmployeeData from "@/store/modules/EmployeeData";
 import Settings from "@/components/user/Settings";
 import Control from "@/components/user/Control";
 import MainPage from "@/components/user/MainPage";
+import EmployeeTable from "@/components/user/EmployeeTable";
 
 Vue.use(Router)
 
@@ -37,6 +38,10 @@ export default new Router({
                 {
                     path: 'main',
                     component: MainPage,
+                },
+                {
+                    path: 'table',
+                    component: EmployeeTable,
                 }
             ]
         },

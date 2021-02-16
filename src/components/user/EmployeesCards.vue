@@ -13,7 +13,7 @@
                 <span>{{ item.name }} {{ item.surname }} {{ item.patronymic }}</span>
               </v-col>
               <v-col col="4">
-                <div><span class="grey--text">ID: </span> {{ item.ID }}</div>
+                <div><span class="grey--text">ID: </span> {{ item.id }}</div>
               </v-col>
             </v-row>
           </v-col>

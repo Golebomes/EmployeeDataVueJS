@@ -1,5 +1,5 @@
 <template>
-  <h1>Settings</h1>
+  <h1 class="pa-2">Settings</h1>
 </template>
 
 <script>

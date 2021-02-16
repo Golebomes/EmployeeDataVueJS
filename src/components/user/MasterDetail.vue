@@ -11,8 +11,8 @@
           <v-container>
 
             <!--            Top info about selected Employee-->
-            <div v-if="selected.ID!=null">
-              <h2>{{ selected.name }} {{ selected.surname }} {{ selected.patronymic }} {{ selected.ID }}</h2>
+            <div v-if="selected.id!=null">
+              <h2>{{ selected.name }} {{ selected.surname }} {{ selected.patronymic }} </h2>
               <v-divider style="padding-top: 10px;padding-bottom: 10px"></v-divider>
             </div>
 
@@ -44,7 +44,7 @@
               </v-col>
 
               <v-col cols="4">
-                <v-btn style="background-color: red; color: #f1f1f1" v-on:click="deleteEmployee(selected.ID)">
+                <v-btn style="background-color: red; color: #f1f1f1" v-on:click="deleteEmployee(selected.id)">
                   Удалить
                 </v-btn>
               </v-col>
@@ -151,7 +151,7 @@
 
             <v-row>
               <v-col>
-                <v-btn style="background-color: purple; color: #f1f1f1" v-on:click="StyleSave">
+                <v-btn disabled style="background-color: purple; color: #f1f1f1" v-on:click="StyleSave">
                   Сохранить
                 </v-btn>
               </v-col>

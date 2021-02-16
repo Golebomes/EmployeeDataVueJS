@@ -37,8 +37,8 @@
             <v-icon>{{ 'mdi-lifebuoy' }}</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ 'Услуги' }}</v-list-item-title>
+          <v-list-item-content @click="clickTable">
+            <v-list-item-title>{{ 'Таблица' }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -152,6 +152,9 @@ export default {
       }
 
     },
+    clickTable() {
+      this.$router.push('table');
+    },
     clickControl() {
       // this.showSettings = false;
       // this.showControl = true;
@@ -183,7 +186,7 @@ export default {
     deleteEmployee(ID) {
       this.$store.dispatch('deleteEmployee',ID)
       for (let i = 0; i < this.EmployeeData.length; i++) {
-        if (this.EmployeeData[i].ID === ID) {
+        if (this.EmployeeData[i].id === ID) {
           this.EmployeeData.splice(i, 1);
         }
       }
@@ -192,7 +195,7 @@ export default {
     changeEmployee(employee) {
       this.$store.dispatch('changeEmployee', employee);
       for (let i = 0; i < this.EmployeeData.length; i++) {
-        if (this.EmployeeData[i].ID === employee.ID) {
+        if (this.EmployeeData[i].id === employee.id) {
           this.EmployeeData.name = employee.name;
           this.EmployeeData.surname = employee.surname;
           this.EmployeeData.patromic = employee.patromic;
