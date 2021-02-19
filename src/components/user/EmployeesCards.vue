@@ -1,6 +1,6 @@
 <template>
   <div style="overflow-y:scroll;">
-    <v-card v-for="item in data" :key="item.ID" @click="clickDetail(item)" class="mb-2 mr-2">
+    <v-card v-for="item in data" :key="item.id" @click="clickDetail(item)" class="mb-2 mr-2">
       <v-container>
         <v-row>
           <v-col cols="4">

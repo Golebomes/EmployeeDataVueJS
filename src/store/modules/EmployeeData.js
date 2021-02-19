@@ -35,22 +35,37 @@ export default {
             const newEmployee = res;
             ctx.commit('updateEmployeesAfterAdding', newEmployee)
         },
+
         async login(ctx, emp) {
-            const res = {
-                email: 'a',
-                password: 'a'
+            console.log(emp);
+            // eslint-disable-next-line no-unused-vars
+            const res = await fetch('http://localhost:7777/auth', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(emp)
+            })
+
+            // eslint-disable-next-line no-constant-condition
+            if ( await res.json() ) {
+                sessionStorage.setItem('isSignIn', 'true')
+                ctx.commit('changeAuthStatusTrue')
             }
 
-            if (res.email == emp.email && res.password == emp.password) {
-                sessionStorage.setItem('isSignIn', 'true')
-                ctx.commit('changeAuthStatus')
-            } else {
-                console.log("Authorization failed");
-            }
+            // for(let i = 0; i < employees.length; i++) {
+            //     if (employees[i].email === emp.email && employees[i].password === emp.password) {
+            //         console.log('authorization happen')
+            //         sessionStorage.setItem('isSignIn', 'true')
+            //         ctx.commit('changeAuthStatusTrue')
+            //         break
+            //     }
+            // }
+
+
+
         },
         logout(ctx) {
             sessionStorage.removeItem('isSignIn')
-            ctx.commit('changeAuthStatus');
+            ctx.commit('changeAuthStatusFalse');
         }
     },
     mutations: {
@@ -69,14 +84,18 @@ export default {
         updateBitPrice(state, bitPrice) {
             state.bitPrice = bitPrice
         },
-        changeAuthStatus(state) {
-            state.isAuthorized = !state.isAuthorized;
+        changeAuthStatusFalse(state) {
+            state.isAuthorized = false;
+        },
+        changeAuthStatusTrue(state) {
+            state.isAuthorized = true;
         },
 
     },
     state: {
 
-        isAuthorized: JSON.parse(sessionStorage.getItem('isSignIn')),
+        // isAuthorized: JSON.parse(sessionStorage.getItem('isSignIn')),
+        isAuthorized: false,
         bitPrice: [],
         employeeData: [],
         MainWrapperKey: 1,

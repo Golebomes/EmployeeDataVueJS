@@ -51,20 +51,21 @@
 export default {
   name: "Login.vue",
   methods: {
-    login() {
+    async login() {
       if (this.email === "" || this.password === "") {
         this.result = "Поля \"Email\" и \"Пароль\" должны быть заполнены.";
         this.showResult = true
       } else {
-        this.$store.dispatch('login', {email: this.email, password: this.password})
-        if (this.$store.getters.isAuthorized === true){
-          this.$router.push('/')
-        } else {
-          this.result = "Введён не верный \"Email\" или \"Пароль\"."
-          this.showResult = true
+        await this.$store.dispatch('login', {email: this.email, password: this.password})
+          if (this.$store.getters.isAuthorized){
+          await this.$router.push('/')
+          } else {
+            this.result = "Введён не верный \"Email\" или \"Пароль\"."
+            this.showResult = true
         }
       }
     },
+
 
   },
   data() {
@@ -82,6 +83,7 @@ export default {
         required: value => !!value || 'Обязательное поле',
         min: v => v.length >= 8 || 'Необходимо 8 символов',
       },
+      res: {},
     }
   }
 }

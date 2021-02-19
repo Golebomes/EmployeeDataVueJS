@@ -34,7 +34,7 @@
 
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>{{ 'mdi-lifebuoy' }}</v-icon>
+            <v-icon>{{ 'mdi-table ' }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content @click="clickTable">
@@ -223,7 +223,7 @@ export default {
           surname: 'Мереков',
           patronymic: 'Ержанович',
           iin: '12345678',
-          ID: "1001",
+          id: "1001",
           email: "kraken007@gmail.com",
           password: 'a'
         },
